@@ -7,7 +7,7 @@ Adafruit_BME280 bme;
 #define AMOUNT_OF_READINGS 15
 
 float getTemperature(){
- 	return bme.readTemperature();
+	return bme.readTemperature();
 }
 
 float getHumidity(){
@@ -15,33 +15,32 @@ float getHumidity(){
 }
 
 float getAverage(float *data, int size) {
-  	float sum = 0.0, average;       
-
-   	for (int i = 0; i < size; i++) {
-      	sum += data[i];
-  	}
-   
-   	average = sum /  size;
-
-   	return average;
+	float sum = 0.0, average;       
+	
+	for (int i = 0; i < size; i++) {
+		sum += data[i];
+	}
+	
+	average = sum /  size;
+	
+	return average;
 }
 
 void setup() {
-    Wire.begin(23, 22);
-    Serial.begin(9600);
-
-    if (!bme.begin()) {
-        Serial.println("Could not find a valid BME280 sensor, check wiring!");
-        while (1);
-    } else {
+	Wire.begin(23, 22);
+	Serial.begin(9600);
+	
+	if (!bme.begin()) {
+		Serial.println("Could not find a valid BME280 sensor, check wiring!");
+		while (1);
+	} else {
 		Serial.println("Welcçome to Plantagotchi!");
 	}
 }
 
 void loop() {
-	
 	float temparatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS];
-
+	
 	for (int i = 0; i < AMOUNT_OF_READINGS; i++)
 	{
 		temparatures[i] = getTemperature();
