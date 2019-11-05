@@ -2,37 +2,65 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
 
-#define SEALEVELPRESSURE_HPA (1013.25)
-
 Adafruit_BME280 bme;
 
-void setup() {
-  Wire.begin(23, 22);
-	Serial.begin(9600);
+#define AMOUNT_OF_READINGS 15
 
-	if (!bme.begin()) {
-		Serial.println("Could not find a valid BME280 sensor, check wiring!");
-		while (1);
+float getTemperature(){
+ 	return bme.readTemperature();
+}
+
+float getHumidity(){
+	return bme.readHumidity();
+}
+
+float getAverage(float *data, int size) {
+  	float sum = 0.0, average;       
+
+   	for (int i = 0; i < size; i++) {
+      	sum += data[i];
+  	}
+   
+   	average = sum /  size;
+
+   	return average;
+}
+
+void setup() {
+    Wire.begin(23, 22);
+    Serial.begin(9600);
+
+    if (!bme.begin()) {
+        Serial.println("Could not find a valid BME280 sensor, check wiring!");
+        while (1);
+    } else {
+		Serial.println("Welcçome to Plantagotchi!");
 	}
 }
 
 void loop() {
-	Serial.print("Temperature = ");
-	Serial.print(bme.readTemperature());
-	Serial.println("*C");
+	
+	float temparatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS];
 
-	Serial.print("Pressure = ");
-	Serial.print(bme.readPressure() / 100.0F);
-	Serial.println("hPa");
+	for (int i = 0; i < AMOUNT_OF_READINGS; i++)
+	{
+		temparatures[i] = getTemperature();
+		humidities[i] = getHumidity();
+		sleep(1);
+	}
 
-	Serial.print("Approx. Altitude = ");
-	Serial.print(bme.readAltitude(SEALEVELPRESSURE_HPA));
-	Serial.println("m");
+	float average_temparature = getAverage(temparatures, sizeof(temparatures));
+	float average_humidity = getAverage(humidities, sizeof(humidities));
+	
+	Serial.println("");
+	Serial.print("Average temperature = ");
+	Serial.print(average_temparature);
+	Serial.println(" *C");
 
-	Serial.print("Humidity = ");
-	Serial.print(bme.readHumidity());
+	Serial.print("Average humidity = ");
+	Serial.print(average_humidity);
 	Serial.println("%");
 
-	Serial.println();
-	delay(1000);
+	sleep(30);
 }
+
