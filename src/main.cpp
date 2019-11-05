@@ -41,8 +41,10 @@ void setup() {
 void loop() {
 	float temparatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS];
 	
+	Serial.print("Reading");
 	for (int i = 0; i < AMOUNT_OF_READINGS; i++)
 	{
+		Serial.print(".");
 		temparatures[i] = getTemperature();
 		humidities[i] = getHumidity();
 		sleep(1);
@@ -60,6 +62,5 @@ void loop() {
 	Serial.print(average_humidity);
 	Serial.println("%");
 
-	sleep(30);
+	sleep(15);
 }
-
