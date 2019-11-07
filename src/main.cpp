@@ -11,7 +11,7 @@ MPU6050 accelgyro;
 #define AMOUNT_OF_READINGS 15
 #define INTERRUPT_GPIO 26
 
-bool xPos, xNeg, yPos, yNeg, zPos, zNeg;
+bool has_moved;
 volatile bool detect_movement = true;
 volatile bool allow_reading_sensors = true;
 volatile bool is_reading_sensors = true;
@@ -21,8 +21,7 @@ float temparatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS];
 void setAllowReadingSensors();
 void setDetectMovement();
 Ticker allow_reading_sensors_timer(setAllowReadingSensors, 30000);
-Ticker detect_movement_timer(setDetectMovement, 15000);
-
+Ticker read_after_movement_timer(setAllowReadingSensors, 15000);
 
 float getTemperature(){
 	return bme.readTemperature();
@@ -72,16 +71,14 @@ void readSensors() {
 	readTemperature();
 	is_reading_sensors = false;
 	allow_reading_sensors = false;
+	detect_movement = true;
+	read_after_movement_timer.stop();
 	allow_reading_sensors_timer.start();
+	
 }
 
 void setAllowReadingSensors() {
 	allow_reading_sensors = true;
-}
-
-void setDetectMovement() {
-	detect_movement = true;
-	detect_movement_timer.stop();
 }
 
 void setup() {
@@ -110,21 +107,16 @@ void setup() {
 
 void loop() {
 	allow_reading_sensors_timer.update();
-	detect_movement_timer.update();
-
+	read_after_movement_timer.update();
 	if(detect_movement && !is_reading_sensors) {
-		xPos = accelgyro.getXPosMotionDetected();
-		xNeg = accelgyro.getXNegMotionDetected();
-		yPos = accelgyro.getYPosMotionDetected();
-		yNeg = accelgyro.getYNegMotionDetected();
-		zPos = accelgyro.getZPosMotionDetected();
-		zNeg = accelgyro.getZNegMotionDetected();
 
-		if(xPos || xNeg || yPos || yNeg || zPos || zNeg ) {
+		has_moved = accelgyro.getXPosMotionDetected() || accelgyro.getXNegMotionDetected() || accelgyro.getYPosMotionDetected() 
+				|| accelgyro.getYNegMotionDetected() || accelgyro.getZPosMotionDetected() || accelgyro.getZNegMotionDetected();
+
+		if(has_moved) {
 			Serial.println("\nForcing read from sensors as movement has been detected.");
 			allow_reading_sensors_timer.stop();
-			detect_movement_timer.start();
-			allow_reading_sensors = true;
+			read_after_movement_timer.start();
 			detect_movement = false;
 		}
 	}
