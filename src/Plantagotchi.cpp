@@ -1,11 +1,15 @@
 #include <Wire.h>
+#include <WiFi.h>
 #include "Adafruit_Sensor.h"
 #include "Adafruit_BME280.h"
 #include "BH1750.h"
 #include "Ticker.h"
+#include "BLEWrapper.h"
+
+using namespace std;
 
 Adafruit_BME280 bme;
-BH1750 lightMeter;
+BH1750 light_meter;
 
 #define VIBRATION_PIN 15
 #define AMOUNT_OF_READINGS 	50
@@ -17,6 +21,8 @@ volatile bool detect_movement = true;
 volatile bool allow_reading_sensors = true;
 volatile bool is_reading_sensors = true;
 
+string ssid = "";
+string password = "";
 
 void setAllowReadingSensors();
 Ticker allow_reading_sensors_timer(setAllowReadingSensors, 30000);
@@ -30,7 +36,7 @@ float getHumidity(){
 }
 
 float getLightLevel(){
-	return lightMeter.readLightLevel();
+	return light_meter.readLightLevel();
 }
 
 float getAverage(float *data, int size) {
@@ -85,7 +91,6 @@ void readSensors() {
 	allow_reading_sensors = false;
 	detect_movement = true;
 	allow_reading_sensors_timer.start();
-	
 }
 
 void setAllowReadingSensors() {
@@ -95,7 +100,6 @@ void setAllowReadingSensors() {
 void connectToSensors() {
 	bool is_bme280_connected = false;
 	bool is_gy30_connected = false;
-
 
 	while (!is_bme280_connected || !is_gy30_connected)
 	{
@@ -109,17 +113,30 @@ void connectToSensors() {
 		pinMode(VIBRATION_PIN, INPUT);
 
 		//Setup and Initialise GY-30 / BH1750 (Light Sensor)
-		is_gy30_connected = lightMeter.begin();
+		is_gy30_connected = light_meter.begin();
 		Serial.println(is_gy30_connected ? "GY-30 connection successful." : "GY-30 connection failed.");
-
 	}
-
 }
 
 void setup() {
-
 	Serial.begin(9600);
   	Wire.begin(23, 22);
+	
+	BLEWrapper::setup(&ssid, &password);
+
+	// Wait for WiFi to be set up
+	while(WiFi.status() != WL_CONNECTED) {
+		delay(5000);
+		WiFi.begin(ssid.c_str(), password.c_str());
+
+		if (WiFi.status() != WL_CONNECTED)
+		{
+			Serial.println("Connecting...");
+		}
+
+	}
+
+	Serial.println("Connected to Wifi!");
 
 	connectToSensors();
 
@@ -129,8 +146,7 @@ void setup() {
 void loop() {
 	allow_reading_sensors_timer.update();
 
-	if (digitalRead(VIBRATION_PIN) == LOW)
-	{
+	if (digitalRead(VIBRATION_PIN) == LOW) {
 		has_moved = true;
 	} else {
 		has_moved = false;
