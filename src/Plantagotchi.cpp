@@ -1,3 +1,4 @@
+#include <string>
 #include <Wire.h>
 #include <WiFi.h>
 #include "Adafruit_Sensor.h"
@@ -98,6 +99,8 @@ void setAllowReadingSensors() {
 }
 
 void connectToSensors() {
+	Serial.println("\n== Connecting to sensors ==");
+
 	bool is_bme280_connected = false;
 	bool is_gy30_connected = false;
 
@@ -116,31 +119,49 @@ void connectToSensors() {
 		is_gy30_connected = light_meter.begin();
 		Serial.println(is_gy30_connected ? "GY-30 connection successful." : "GY-30 connection failed.");
 	}
+
+	Serial.println("\n===========\n");
+}
+
+void connectToWifi() {
+	int attempts = 0;
+	Serial.println("\n== Connecting to WiFi ==");
+	while(WiFi.status() != WL_CONNECTED) {
+		if (!ssid.empty() && !password.empty())
+		{
+
+			attempts++;
+			
+			WiFi.begin(ssid.c_str(), password.c_str());
+
+			if(WiFi.status() == WL_CONNECTED) {
+				BLEWrapper::setWifiStatus("CONNECTED");
+			} else {
+				Serial.print("-");
+				if(attempts == 3) {
+					ssid = "";
+					password = "";
+					attempts = 0;
+					Serial.println(" ** WiFi connection failed.");
+				}
+				delay(1000);
+			}
+		}
+	}
+
+	Serial.println("WiFI connection successful.");
+	Serial.println("\n===========\n");
 }
 
 void setup() {
 	Serial.begin(9600);
   	Wire.begin(23, 22);
 	
-	BLEWrapper::setup(&ssid, &password);
-
-	// Wait for WiFi to be set up
-	while(WiFi.status() != WL_CONNECTED) {
-		delay(5000);
-		WiFi.begin(ssid.c_str(), password.c_str());
-
-		if (WiFi.status() != WL_CONNECTED)
-		{
-			Serial.println("Connecting...");
-		}
-
-	}
-
-	Serial.println("Connected to Wifi!");
-
 	connectToSensors();
-
-	Serial.println("\nWelcome to Plantagotchi!");
+	BLEWrapper::setup(&ssid, &password);
+	connectToWifi();
+	
+	Serial.println("\nWelcome to Plantagotchi!\n");
 }
 
 void loop() {
@@ -153,12 +174,10 @@ void loop() {
 	}
 	
 	if((detect_movement && !is_reading_sensors) && has_moved) {
-
 			Serial.println("\nForcing read from sensors as movement has been detected.");
 			allow_reading_sensors_timer.stop();
 			allow_reading_sensors = true;
 			detect_movement = false;
-		
 	}
 
 	if(allow_reading_sensors) {
