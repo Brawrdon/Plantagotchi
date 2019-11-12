@@ -24,6 +24,8 @@ string password = "";
 
 float min_temperature = NAN;
 float max_temperature = NAN;
+float min_humidity = NAN;
+float max_humidity = NAN;
 
 void setAllowReadingSensors();
 Ticker allow_reading_sensors_timer(setAllowReadingSensors, 30000);
@@ -123,7 +125,7 @@ void connectToSensors() {
 	Serial.println("\nWaiting for confirmation that sensors min/max values have been set.");
 	while (!PlantagotchiBLE::getSensorsConfigured())
 	{
-		if(!isnan(min_temperature) && !isnan(max_temperature)) {
+		if(!isnan(min_temperature) && !isnan(max_temperature) && !isnan(min_humidity) && !isnan(max_humidity)) {
 			PlantagotchiBLE::setSensorsConfigured(true);
 		}
 	}
@@ -164,7 +166,7 @@ void setup() {
 	Serial.begin(9600);
   	Wire.begin(23, 22);
 	
-	PlantagotchiBLE::setup(&ssid, &password, &min_temperature, &max_temperature);
+	PlantagotchiBLE::setup(&ssid, &password, &min_temperature, &max_temperature, &min_humidity, &max_humidity);
 
 	connectToSensors();
 	connectToWifi();
