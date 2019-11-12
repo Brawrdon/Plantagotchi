@@ -1,11 +1,10 @@
-#include <string>
 #include <Wire.h>
 #include <WiFi.h>
 #include "Adafruit_Sensor.h"
 #include "Adafruit_BME280.h"
 #include "BH1750.h"
 #include "Ticker.h"
-#include "BLEWrapper.h"
+#include "PlantagotchiBLE.h"
 
 using namespace std;
 
@@ -14,16 +13,17 @@ BH1750 light_meter;
 
 #define VIBRATION_PIN 15
 #define AMOUNT_OF_READINGS 	50
-#define MIN_TEMPERATURE 30.00
-#define MIN_HUMIDITY 40.00
 
-volatile bool has_moved = false;
-volatile bool detect_movement = true;
-volatile bool allow_reading_sensors = true;
-volatile bool is_reading_sensors = true;
+bool has_moved = false;
+bool detect_movement = true;
+bool allow_reading_sensors = true;
+bool is_reading_sensors = true;
 
 string ssid = "";
 string password = "";
+
+float min_temperature = NAN;
+float max_temperature = NAN;
 
 void setAllowReadingSensors();
 Ticker allow_reading_sensors_timer(setAllowReadingSensors, 30000);
@@ -72,13 +72,13 @@ void readTemperature() {
 	Serial.print("\nAverage temperature = ");
 	Serial.print(average_temparature);
 	Serial.print(" *C\t - \t");
-	Serial.println(average_temparature < MIN_TEMPERATURE ? "Temperature is too low!" : "Temperature is good!");
+	Serial.println(average_temparature < min_temperature ? "Temperature is too low!" : "Temperature is good!");
 
 
 	Serial.print("Average humidity = ");
 	Serial.print(average_humidity);
 	Serial.print("%\t - \t");
-	Serial.println(average_humidity < MIN_HUMIDITY ? "Humidity is too low!" : "Humidity is good!");
+	Serial.println(average_humidity < min_temperature ? "Humidity is too low!" : "Humidity is good!");
 
 	Serial.print("Average light level = ");
 	Serial.print(average_light_level);
@@ -99,7 +99,7 @@ void setAllowReadingSensors() {
 }
 
 void connectToSensors() {
-	Serial.println("\n== Connecting to sensors ==");
+	Serial.println("\n== Connecting to sensors ==\n");
 
 	bool is_bme280_connected = false;
 	bool is_gy30_connected = false;
@@ -110,7 +110,7 @@ void connectToSensors() {
 
 		// Setup and Initialise BME280 (Temperature & Humidity Sensor)
 		is_bme280_connected = bme.begin();
-		Serial.println(is_bme280_connected ? "\nBME280 connection successful." : "\nBME280 connection failed.");
+		Serial.println(is_bme280_connected ? "BME280 connection successful." : "BME280 connection failed.");
 
 		//Setup and Initialise KY-002  (Vibration Sensor)
 		pinMode(VIBRATION_PIN, INPUT);
@@ -120,36 +120,43 @@ void connectToSensors() {
 		Serial.println(is_gy30_connected ? "GY-30 connection successful." : "GY-30 connection failed.");
 	}
 
+	Serial.println("\nWaiting for confirmation that sensors min/max values have been set.");
+	while (!PlantagotchiBLE::getSensorsConfigured())
+	{
+		if(!isnan(min_temperature) && !isnan(max_temperature)) {
+			PlantagotchiBLE::setSensorsConfigured(true);
+		}
+	}
+
+	Serial.println("\nMin/max values set.");
 	Serial.println("\n===========\n");
 }
 
 void connectToWifi() {
 	int attempts = 0;
-	Serial.println("\n== Connecting to WiFi ==");
+	Serial.println("\n== Connecting to WiFi ==\n");
 	while(WiFi.status() != WL_CONNECTED) {
-		if (!ssid.empty() && !password.empty())
-		{
-
+		if (!ssid.empty() && !password.empty())		{
 			attempts++;
 			
 			WiFi.begin(ssid.c_str(), password.c_str());
 
 			if(WiFi.status() == WL_CONNECTED) {
-				BLEWrapper::setWifiStatus("CONNECTED");
+				PlantagotchiBLE::setWifiStatus(true);
 			} else {
 				Serial.print("-");
 				if(attempts == 3) {
-					ssid = "";
-					password = "";
+					ssid[0] = '\0';				
+					password[0] = '\0';					
 					attempts = 0;
-					Serial.println(" ** WiFi connection failed.");
+					Serial.println("\n ** WiFi connection failed.");
 				}
-				delay(1000);
+				delay(2000);
 			}
 		}
 	}
 
-	Serial.println("WiFI connection successful.");
+	Serial.println("\nWiFI connection successful.");
 	Serial.println("\n===========\n");
 }
 
@@ -157,10 +164,12 @@ void setup() {
 	Serial.begin(9600);
   	Wire.begin(23, 22);
 	
+	PlantagotchiBLE::setup(&ssid, &password, &min_temperature, &max_temperature);
+
 	connectToSensors();
-	BLEWrapper::setup(&ssid, &password);
 	connectToWifi();
-	
+
+
 	Serial.println("\nWelcome to Plantagotchi!\n");
 }
 
