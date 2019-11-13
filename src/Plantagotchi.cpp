@@ -12,7 +12,7 @@ Adafruit_BME280 bme;
 BH1750 light_meter;
 
 #define VIBRATION_PIN 15
-#define AMOUNT_OF_READINGS 	50
+#define AMOUNT_OF_READINGS 50
 
 bool has_moved = false;
 bool detect_movement = true;
@@ -22,10 +22,11 @@ bool is_reading_sensors = true;
 string ssid = "";
 string password = "";
 
-float min_temperature = NAN;
-float max_temperature = NAN;
-float min_humidity = NAN;
-float max_humidity = NAN;
+uint8_t min_temperature;
+uint8_t max_temperature;
+uint8_t min_humidity;
+uint8_t max_humidity;
+
 
 void setAllowReadingSensors();
 Ticker allow_reading_sensors_timer(setAllowReadingSensors, 30000);
@@ -56,25 +57,25 @@ float getAverage(float *data, int size) {
 
 void readTemperature() {
 	Serial.print("\nReading");
-	float temparatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS], light_levels[AMOUNT_OF_READINGS];
+	float temperatures[AMOUNT_OF_READINGS], humidities[AMOUNT_OF_READINGS], light_levels[AMOUNT_OF_READINGS];
 
 	for (int i = 0; i < AMOUNT_OF_READINGS; i++)
 	{
 		Serial.print(".");
-		temparatures[i] = getTemperature();
+        temperatures[i] = getTemperature();
 		humidities[i] = getHumidity();
 		light_levels[i] = getLightLevel();
 		delay(100);
 	}
 
-	float average_temparature = getAverage(temparatures, AMOUNT_OF_READINGS);
+	float average_temperature = getAverage(temperatures, AMOUNT_OF_READINGS);
 	float average_humidity = getAverage(humidities, AMOUNT_OF_READINGS);
 	float average_light_level = getAverage(light_levels, AMOUNT_OF_READINGS);
 
 	Serial.print("\nAverage temperature = ");
-	Serial.print(average_temparature);
+	Serial.print(average_temperature);
 	Serial.print(" *C\t - \t");
-	Serial.println(average_temparature < min_temperature ? "Temperature is too low!" : "Temperature is good!");
+	Serial.println(average_temperature < min_temperature ? "Temperature is too low!" : "Temperature is good!");
 
 
 	Serial.print("Average humidity = ");
@@ -108,8 +109,6 @@ void connectToSensors() {
 
 	while (!is_bme280_connected || !is_gy30_connected)
 	{
-		delay(500);
-
 		// Setup and Initialise BME280 (Temperature & Humidity Sensor)
 		is_bme280_connected = bme.begin();
 		Serial.println(is_bme280_connected ? "BME280 connection successful." : "BME280 connection failed.");
@@ -125,31 +124,36 @@ void connectToSensors() {
 	Serial.println("\nWaiting for confirmation that sensors min/max values have been set.");
 	while (!PlantagotchiBLE::getSensorsConfigured())
 	{
-		if(!isnan(min_temperature) && !isnan(max_temperature) && !isnan(min_humidity) && !isnan(max_humidity)) {
-			PlantagotchiBLE::setSensorsConfigured(true);
-		}
 	}
 
 	Serial.println("\nMin/max values set.");
-	Serial.println("\n===========\n");
-}
+    Serial.print("Temperature: ");
+    Serial.print(min_temperature);
+    Serial.print(" - ");
+    Serial.print(max_temperature);
+    Serial.println(" *c");
 
+    Serial.print("Humidity: ");
+    Serial.print(min_humidity);
+    Serial.print(" - ");
+    Serial.print(max_humidity);
+    Serial.println(" % ");
+    Serial.println("\n===========\n");
+}
+//rmsj9491
 void connectToWifi() {
 	int attempts = 0;
 	Serial.println("\n== Connecting to WiFi ==\n");
 	while(WiFi.status() != WL_CONNECTED) {
-		if (!ssid.empty() && !password.empty())		{
+		if (PlantagotchiBLE::getWifiConfigured()) {
 			attempts++;
 			
 			WiFi.begin(ssid.c_str(), password.c_str());
 
-			if(WiFi.status() == WL_CONNECTED) {
-				PlantagotchiBLE::setWifiStatus(true);
-			} else {
-				Serial.print("-");
+			if(WiFi.status() != WL_CONNECTED) {
+			    Serial.print("-");
 				if(attempts == 3) {
-					ssid[0] = '\0';				
-					password[0] = '\0';					
+				    PlantagotchiBLE::resetWifiConfigured();
 					attempts = 0;
 					Serial.println("\n ** WiFi connection failed.");
 				}
@@ -163,14 +167,12 @@ void connectToWifi() {
 }
 
 void setup() {
-	Serial.begin(9600);
+	Serial.begin(115200);
   	Wire.begin(23, 22);
-	
-	PlantagotchiBLE::setup(&ssid, &password, &min_temperature, &max_temperature, &min_humidity, &max_humidity);
 
+    PlantagotchiBLE::setup(&ssid, &password, &min_temperature, &max_temperature, &min_humidity, &max_humidity);
 	connectToSensors();
 	connectToWifi();
-
 
 	Serial.println("\nWelcome to Plantagotchi!\n");
 }
