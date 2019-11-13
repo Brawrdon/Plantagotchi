@@ -2,3 +2,7 @@
 .vscode/
 .idea
 .DS_Store
+/cmake-build-featheresp32/
+/cmake-build-debug/
+/CMakeLists.txt
+/CMakeListsPrivate.txt
