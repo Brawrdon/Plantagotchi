@@ -1,40 +1,44 @@
 #include <BLEDevice.h>
-#include "PlantagotchiBLE.h"
+#include <WiFi.h>
+#include "Connectivity.h"
+
 
 using namespace std;
-
-string* ssid_pointer;
-string* password_pointer;
-uint8_t* min_temperature_pointer;
-uint8_t* max_temperature_pointer;
-uint8_t* min_humidity_pointer;
-uint8_t* max_humidity_pointer;
-
-bool ssid_set = false;
-bool password_set = false;
-
-bool min_temperature_set = false;
-bool max_temperature_set = false;
-bool min_humidity_set = false;
-bool max_humidity_set = false;
+using namespace Plantagotchi;
 
 
-void setReceivedUInt8(BLECharacteristic *characteristic_pointer, uint8_t* data_pointer, bool* set_flag_pointer)  {
-    uint8_t received_data = (int8_t) *(characteristic_pointer->getData());
+string Plantagotchi::ssid = "";
+string Plantagotchi::password = "";
+
+int8_t* Plantagotchi::min_temperature_pointer;
+int8_t* Plantagotchi::max_temperature_pointer;
+int8_t* Plantagotchi::min_humidity_pointer;
+int8_t* Plantagotchi::max_humidity_pointer;
+
+bool Plantagotchi::ssid_set = false;
+bool Plantagotchi::password_set = false;
+bool Plantagotchi::min_temperature_set = false;
+bool Plantagotchi::max_temperature_set = false;
+bool Plantagotchi::min_humidity_set = false;
+bool Plantagotchi::max_humidity_set = false;
+
+
+void setReceivedUInt8(BLECharacteristic* characteristic_pointer, int8_t* data_pointer, bool* set_flag_pointer)  {
+    int8_t received_data = (int8_t) *(characteristic_pointer->getData());
     *data_pointer = received_data;
     *set_flag_pointer = true;
 };
 
 class SSIDCharacteristicCallback: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic* characteristic_pointer) {
-        *ssid_pointer = characteristic_pointer->getValue();
+        ssid = characteristic_pointer->getValue();
         ssid_set = true;
     };
 };
 
 class PasswordCharacteristicCallback: public BLECharacteristicCallbacks {
     void onWrite(BLECharacteristic* characteristic_pointer) {
-        *password_pointer = characteristic_pointer->getValue();
+        password = characteristic_pointer->getValue();
         password_set = true;
     };
 };
@@ -65,9 +69,7 @@ class MaxHumidityCharacteristicCallback: public BLECharacteristicCallbacks {
 };
 
 
-void PlantagotchiBLE::setup(string* ssid_pointer, string* password_pointer, uint8_t* min_temperature_pointer, uint8_t* max_temperature_pointer, uint8_t* min_humidity_pointer, uint8_t* max_humidity_pointer) {
-	::ssid_pointer = ssid_pointer;
-	::password_pointer = password_pointer;
+void Plantagotchi::setupBLE(int8_t* min_temperature_pointer, int8_t* max_temperature_pointer, int8_t* min_humidity_pointer, int8_t* max_humidity_pointer) {
 	::min_temperature_pointer = min_temperature_pointer;
 	::max_temperature_pointer = max_temperature_pointer;
 	::min_humidity_pointer = min_humidity_pointer;
@@ -134,16 +136,49 @@ void PlantagotchiBLE::setup(string* ssid_pointer, string* password_pointer, uint
 	BLEDevice::startAdvertising();
 }
 
-bool PlantagotchiBLE::getWifiConfigured() {
+void Plantagotchi::setupWiFi() {
+    int attempts = 0;
+
+    Serial.println("\n== [Setting WiFi connection] ==\n");
+    Serial.println("Waiting for SSID and password to be set via BLE.");
+
+    while(WiFi.status() != WL_CONNECTED) {
+        if (getWifiConfigured()) {
+
+            attempts++;
+
+            if(attempts == 1) {
+                Serial.print("Connecting");
+            }
+
+            WiFi.begin(ssid.c_str(), password.c_str());
+
+            if(WiFi.status() != WL_CONNECTED) {
+                Serial.print(" .");
+                if(attempts == 3) {
+                    resetWifiConfigured();
+                    attempts = 0;
+                    Serial.println(" WiFi connection failed.");
+                    Serial.println("Waiting for SSID and password to be resent.");
+                }
+                delay(3000);
+            }
+        }
+    }
+
+    Serial.println(" WiFI connection successful.");
+}
+
+bool Plantagotchi::getWifiConfigured() {
     return ssid_set && password_set;
 }
 
-void PlantagotchiBLE::resetWifiConfigured() {
+void Plantagotchi::resetWifiConfigured() {
     ssid_set = false;
     password_set = false;
 }
 
-bool PlantagotchiBLE::getSensorsConfigured() {
+bool Plantagotchi::getSensorsConfigured() {
     return min_temperature_set && max_temperature_set && min_humidity_set && max_humidity_set;
 }
 
