@@ -1,8 +1,6 @@
-.pio
-.vscode/
-.idea
+*/.idea
+*/CMakeListsPrivate.txt
+*/cmake-build-featheresp32
+*/cmake-build-debug/
+*/CMakeLists.txt
 .DS_Store
-/cmake-build-featheresp32/
-/cmake-build-debug/
-/CMakeLists.txt
-/CMakeListsPrivate.txt
