@@ -1,5 +1,7 @@
+#include <Arduino.h>
 #include <BLEDevice.h>
 #include <WiFi.h>
+#include "Sensors.h"
 #include "Connectivity.h"
 
 
