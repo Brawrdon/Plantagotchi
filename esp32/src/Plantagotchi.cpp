@@ -3,6 +3,7 @@
 #include "Ticker.h"
 #include "Sensors.h"
 #include "Connectivity.h"
+#include "HTTP.h"
 
 using namespace std;
 using namespace Plantagotchi;
@@ -20,7 +21,7 @@ void setup() {
   	Wire.begin(23, 22);
 
     setupBLE(&min_temperature, &max_temperature, &min_humidity, &max_humidity);
-	connectToSensors();
+    connectToSensors();
 	setupWiFi();
 
 	Serial.println("\n\n*** Welcome to Plantagotchi! ***\n");

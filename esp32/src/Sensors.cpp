@@ -4,6 +4,7 @@
 #include "Ticker.h"
 #include "Sensors.h"
 #include "Connectivity.h"
+#include "HTTP.h"
 
 
 using namespace std;
@@ -133,10 +134,8 @@ void displaySensorData(int32_t *array_pointer, uint8_t array_size, Sensor sensor
     Serial.println("\n");
 }
 
-void checkAverageToThreshold(int32_t *array_pointer, uint8_t array_size, Sensor sensor) {
+void checkAverageToThreshold(int32_t average, Sensor sensor) {
     displaySensorInformation(sensor);
-
-    int32_t average = getAverage(array_pointer, array_size);
 
     Serial.print("> Average: ");
     Serial.println(average);
@@ -251,9 +250,15 @@ void Plantagotchi::readSensors(uint8_t * ticker_pointer) {
     displaySensorData(light_levels, AMOUNT_OF_READINGS, Light);
 
     Serial.println("\n# [Sensor data averages] #\n");
-    checkAverageToThreshold(temperatures, AMOUNT_OF_READINGS, Temperature);
-    checkAverageToThreshold(humidities, AMOUNT_OF_READINGS, Humiditiy);
-    checkAverageToThreshold(light_levels, AMOUNT_OF_READINGS, Light);
+    int32_t temperature_average = getAverage(temperatures, AMOUNT_OF_READINGS);
+    int32_t humidity_average = getAverage(humidities, AMOUNT_OF_READINGS);
+    int32_t light_level_average = getAverage(light_levels, AMOUNT_OF_READINGS);
+
+    checkAverageToThreshold(temperature_average, Temperature);
+    checkAverageToThreshold(humidity_average, Humiditiy);
+    checkAverageToThreshold(light_level_average, Light);
+
+    sendReadings(temperature_average, humidity_average, light_level_average);
 
     is_reading_sensors = false;
     allow_reading_sensors = false;
