@@ -141,7 +141,7 @@ void Plantagotchi::setupBLE(int8_t* min_temperature_pointer, int8_t* max_tempera
 void Plantagotchi::setupWiFi() {
     int attempts = 0;
 
-    Serial.println("\n== [Setting WiFi connection] ==\n");
+    Serial.println("\n\n== [Setting WiFi connection] ==\n");
     Serial.println("Waiting for SSID and password to be set via BLE.");
 
     while(WiFi.status() != WL_CONNECTED) {

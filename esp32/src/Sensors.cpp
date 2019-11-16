@@ -228,7 +228,7 @@ void Plantagotchi::checkForMovement() {
 }
 
 void Plantagotchi::readSensors(uint8_t * ticker_pointer) {
-    Serial.println("\n## [Reading sensor data] ##\n");
+    Serial.println("\n\n## [Reading sensor data] ##\n");
     Ticker* ticker_pointer_cast = (Ticker*) ticker_pointer;
 
     is_reading_sensors = true;

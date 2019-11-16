@@ -5,6 +5,7 @@
 #include "Connectivity.h"
 #include "HTTP.h"
 
+
 using namespace std;
 using namespace Plantagotchi;
 
@@ -23,8 +24,9 @@ void setup() {
     setupBLE(&min_temperature, &max_temperature, &min_humidity, &max_humidity);
     connectToSensors();
 	setupWiFi();
+	registerDevice();
 
-	Serial.println("\n\n*** Welcome to Plantagotchi! ***\n");
+	Serial.println("\n*** Welcome to Plantagotchi! ***");
 }
 
 void loop() {
