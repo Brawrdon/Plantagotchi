@@ -1,6 +1,4 @@
-using System;
-
-namespace Plantagotchi.Models
+namespace Plantagotchi.Models.Requests
 {
     public class Reading
     {
