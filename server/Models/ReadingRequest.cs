@@ -1,4 +1,5 @@
 using System;
+using MongoDB.Bson;
 using Plantagotchi.Models.Database;
 using Plantagotchi.Models.Interfaces;
 using Plantagotchi.Services;
@@ -30,7 +31,7 @@ namespace Plantagotchi.Models
         public static Reading ConvertForDatabase(this ReadingRequest readingRequest)
         {
             var reading = ObjectConverter.Convert<Reading, ReadingRequest>(readingRequest);
-            reading.Date = DateTime.Now;
+            reading.Id = ObjectId.GenerateNewId().ToString();
             if (readingRequest.UserId != null)
                 reading.InitiatedByUser = readingRequest.UserId;
 

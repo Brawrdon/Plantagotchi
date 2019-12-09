@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Plantagotchi.Models.Database;
 using Plantagotchi.Services;
 
 namespace Plantagotchi.Controllers
@@ -17,16 +18,18 @@ namespace Plantagotchi.Controllers
             _deviceService = deviceService;
         }
         
-        [HttpPut("{serialNumber}")]
-        public IActionResult RegisterDevice([FromRoute] string serialNumber)
-        {
-            var response = _deviceService.SetDeviceAvailability(serialNumber, true);
 
-            if (!response)
+        [HttpPatch("{serialNumber}")]
+        public IActionResult ConfigureDevice([FromRoute] string serialNumber, [FromBody] StreakInterval streakInterval)
+        {
+            var updateSuccessful = _deviceService.ConfigureDevice(serialNumber, streakInterval);
+
+            if (!updateSuccessful)
                 return BadRequest();
 
             return Ok();
         }
+
         
         [HttpPost("test")]
         public IActionResult PopulateTestData()

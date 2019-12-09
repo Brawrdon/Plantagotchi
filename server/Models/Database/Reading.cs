@@ -13,10 +13,7 @@ namespace Plantagotchi.Models.Database
         
         [BsonRepresentation(BsonType.ObjectId)]
         public string InitiatedByUser { get; set; }
-        
-        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public DateTime Date { get; set; }
-        
+
         public int Temperature { get; set; }
       
         public int Humidity { get; set; }

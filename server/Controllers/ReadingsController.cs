@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Plantagotchi.Models;
@@ -28,10 +29,27 @@ namespace Plantagotchi.Controllers
             
             var reading = readingRequest.ConvertForDatabase();
 
-            var response = _deviceService.AddReadingToDevice(device.SerialNumber, reading);
+            var updateSuccessful = _deviceService.AddReadingToDevice(device.SerialNumber, reading);
 
+            if (!updateSuccessful)
+                return BadRequest();
+                
             return Ok();
         }
+        
+        [HttpGet("{serialNumber}")]
+        public IActionResult GetReadingsForDate([FromRoute] string serialNumber, [FromQuery] DateTime date)
+        {
+            var device = _deviceService.FindDevice(serialNumber);
+
+            if (device == null)
+                return NotFound();
+            
+            var response = _deviceService.GetReadingsFromDate(device.SerialNumber, date);
+
+            return Ok(response);
+        }
+
 
     }
 }

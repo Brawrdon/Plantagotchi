@@ -21,6 +21,7 @@ namespace Plantagotchi.Services
             _users.DeleteMany(user => true);
             _users.InsertOne(new User()
             {
+                Id = "5dee87327d441e41fe4d5acb",
                 Name = "Brandon"
             });
         }

@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using Plantagotchi.Models.Database;
 
@@ -18,49 +21,70 @@ namespace Plantagotchi.Services
 
         public Device FindDevice(string serialNumber)
         {
-            return _devices.Find(device => device.SerialNumber.Equals(serialNumber)).FirstOrDefault();
+            return _devices.Find(device => device.SerialNumber.Equals(serialNumber) && device.Available).FirstOrDefault();
         }
 
-        public bool SetDeviceAvailability(string serialNumber, bool availability)
+        public bool ConfigureDevice(string serialNumber, StreakInterval streakInterval)
         {
             var builder = new UpdateDefinitionBuilder<Device>();
-            var update = builder.Set(nameof(Device.Available), availability);
-            var response = _devices.UpdateOne(device => device.SerialNumber.Equals(serialNumber), update);
+            var update = builder.Set(nameof(Device.StreakInterval), streakInterval).Set(nameof(Device.Available), true);
+            
+            return UpdateOne(serialNumber, update);
 
-            return Updated(response);
         }
-        
+
         public bool AddReadingToDevice(string serialNumber, Reading reading)
         {
             var builder = Builders<Device>.Update; 
             var update = builder.Push(nameof(Device.Readings), reading);
-
-            var response = _devices.UpdateOne(device => device.SerialNumber.Equals(serialNumber), update);
             
-            return Updated(response);
+            return UpdateOne(serialNumber, update);
         }
 
-        public List<Reading> GetReadingsForDevice(string serialNumber)
+        public List<Reading> GetReadingsFromDate(string serialNumber, DateTime dateTime)
+        {
+            return _devices.Find(devices => devices.SerialNumber.Equals(serialNumber)).FirstOrDefault().Readings.Where(reading =>
+            {
+                var objectId = ObjectId.Parse(reading.Id);
+                return objectId.CreationTime.Date == dateTime.Date;
+            }).ToList();
+        }
+
+        public List<Reading> GetReadingsFromDevice(string serialNumber)
         {
             return _devices.Find(devices => devices.SerialNumber.Equals(serialNumber)).FirstOrDefault().Readings;
         }
 
-        
+
         public void PopulateTestData()
         {
             _devices.DeleteMany(device => true);
-            _devices.InsertOne(new Device()
+            _devices.InsertOne(new Device
             {
                 Available = false,
                 Readings = new List<Reading>(),
                 SerialNumber = "2109698364",
                 Streak = 0
             });
+
+            AddReadingToDevice("2109698364", new Reading
+            {
+                Id = "5dec3d000000000000000000",
+                Temperature = 10,
+                SoilMoistureLevel = 10,
+                Humidity = 10,
+                InitiatedByUser = "5dee87327d441e41fe4d5acb",
+                LightLevel = 10,
+                WithinHumidityRange = true,
+                WithinTemperatureRange = false,
+                WithinLightLevelRange = false
+            });
         }
 
-        private bool Updated(UpdateResult updateResult)
+        private bool UpdateOne(string serialNumber, UpdateDefinition<Device> update)
         {
+            var updateResult = _devices.UpdateOne(device => device.SerialNumber.Equals(serialNumber), update);
             return updateResult.IsAcknowledged && updateResult.ModifiedCount == 1;
-        } 
+        }
     }
 }
