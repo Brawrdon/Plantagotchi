@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Plantagotchi.Models.Requests;
-using Plantagotchi.Models.Responses;
+using Plantagotchi.Models.Database;
+using Plantagotchi.Services;
 
 namespace Plantagotchi.Controllers
 {
@@ -11,26 +10,33 @@ namespace Plantagotchi.Controllers
     [Route("[controller]")]
     public class DevicesController : ControllerBase
     {
-        private readonly ILogger<ReadingsController> _logger;
-        private readonly IList<Device> _devices;
-        
-        public DevicesController(ILogger<ReadingsController> logger, IList<Device> devices)
+        private readonly ILogger<DevicesController> _logger;
+        private readonly DeviceService _deviceService;
+
+        public DevicesController(ILogger<DevicesController> logger, DeviceService deviceService)
         {
-            _devices = devices;
             _logger = logger;
+            _deviceService = deviceService;
         }
 
-        [HttpPost]
-        public IActionResult RegisterDevice(Device device)
+
+        [HttpPut("{serialNumber}")]
+        public IActionResult RegisterDevice([FromRoute] string serialNumber)
         {
-            if (device.Readings == null)
-                device.Readings = new List<Reading>();
+            var response = _deviceService.SetDeviceAvailability(serialNumber, true);
 
-            _devices.Add(device);
+            if (!response)
+                return BadRequest();
 
-            _logger.LogDebug("Device: " + device.Serial);
+            return Ok();
+        }
+        
+        [HttpPost("test")]
+        public IActionResult PopulateTestData()
+        {
+            _deviceService.PopulateTestData();
 
-            return new OkObjectResult(new RequestResult {Result = "Device registered"});
+            return Ok();
         }
     }
 }

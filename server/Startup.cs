@@ -1,18 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Plantagotchi.Models;
-using Plantagotchi.Models.Requests;
+using Microsoft.Extensions.Options;
+
+using Plantagotchi.Models.Database;
+using Plantagotchi.Services;
 
 namespace Plantagotchi
 {
@@ -28,9 +22,16 @@ namespace Plantagotchi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DatabaseSettings>(
+                Configuration.GetSection(nameof(DatabaseSettings)));
+
+            services.AddSingleton<IDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
+
+            services.AddSingleton<DeviceService>();
+            
             services.AddControllers();
             
-            services.AddSingleton<IList<Device>>(new List<Device>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
