@@ -16,6 +16,12 @@ namespace Plantagotchi.Models
         public int LightLevel { get; set; }
         
         public int SoilMoistureLevel { get; set; }
+        
+        public bool WithinTemperatureRange { get; set; }
+        
+        public bool WithinHumidityRange { get; set; }
+        
+        public bool WithinLightLevelRange { get; set; }
     }
 
     public static class ReadingRequestExtensions
@@ -30,6 +36,5 @@ namespace Plantagotchi.Models
 
             return reading;
         }
-
     }
 }

@@ -24,5 +24,11 @@ namespace Plantagotchi.Models.Database
         public int LightLevel { get; set; }
         
         public int SoilMoistureLevel { get; set; }
+        
+        public bool WithinTemperatureRange { get; set; }
+        
+        public bool WithinHumidityRange { get; set; }
+        
+        public bool WithinLightLevelRange { get; set; }
     }
 }

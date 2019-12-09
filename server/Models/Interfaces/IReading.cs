@@ -9,5 +9,11 @@ namespace Plantagotchi.Models.Interfaces
         int LightLevel { get; set; }
         
         int SoilMoistureLevel { get; set; }
+        
+        bool WithinTemperatureRange { get; set; }
+        
+        bool WithinHumidityRange { get; set; }
+        
+        bool WithinLightLevelRange { get; set; }
     }
 }
