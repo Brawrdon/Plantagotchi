@@ -29,7 +29,8 @@ namespace Plantagotchi
                 sp.GetRequiredService<IOptions<DatabaseSettings>>().Value);
 
             services.AddSingleton<DeviceService>();
-            
+            services.AddSingleton<UserService>();
+
             services.AddControllers();
             
         }

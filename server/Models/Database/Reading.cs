@@ -2,7 +2,6 @@ using System;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Plantagotchi.Models.Interfaces;
-using Plantagotchi.Models.Requests;
 
 namespace Plantagotchi.Models.Database
 {
@@ -25,13 +24,5 @@ namespace Plantagotchi.Models.Database
         public int LightLevel { get; set; }
         
         public int SoilMoistureLevel { get; set; }
-        
-        public Reading(ReadingRequest readingRequest)
-        {
-            Temperature = readingRequest.Temperature;
-            Humidity = readingRequest.Humidity;
-            LightLevel = readingRequest.LightLevel;
-            SoilMoistureLevel = readingRequest.SoilMoistureLevel;
-        }
     }
 }

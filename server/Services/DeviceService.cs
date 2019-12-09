@@ -16,15 +16,36 @@ namespace Plantagotchi.Services
             _devices = database.GetCollection<Device>(settings.DeviceCollectionName);
         }
 
+        public Device FindDevice(string serialNumber)
+        {
+            return _devices.Find(device => device.SerialNumber.Equals(serialNumber)).FirstOrDefault();
+        }
+
         public bool SetDeviceAvailability(string serialNumber, bool availability)
         {
             var builder = new UpdateDefinitionBuilder<Device>();
             var update = builder.Set(nameof(Device.Available), availability);
             var response = _devices.UpdateOne(device => device.SerialNumber.Equals(serialNumber), update);
+
+            return Updated(response);
+        }
+        
+        public bool AddReadingToDevice(string serialNumber, Reading reading)
+        {
+            var builder = Builders<Device>.Update; 
+            var update = builder.Push(nameof(Device.Readings), reading);
+
+            var response = _devices.UpdateOne(device => device.SerialNumber.Equals(serialNumber), update);
             
-            return response.IsAcknowledged && response.ModifiedCount == 1;
+            return Updated(response);
         }
 
+        public List<Reading> GetReadingsForDevice(string serialNumber)
+        {
+            return _devices.Find(devices => devices.SerialNumber.Equals(serialNumber)).FirstOrDefault().Readings;
+        }
+
+        
         public void PopulateTestData()
         {
             _devices.DeleteMany(device => true);
@@ -36,5 +57,10 @@ namespace Plantagotchi.Services
                 Streak = 0
             });
         }
+
+        private bool Updated(UpdateResult updateResult)
+        {
+            return updateResult.IsAcknowledged && updateResult.ModifiedCount == 1;
+        } 
     }
 }
