@@ -28,4 +28,18 @@ namespace Plantagotchi.Models.Database
         
         public bool WithinLightLevelRange { get; set; }
     }
+    
+    public static class ReadingExtensions {
+
+        public static bool IsWithinStreakInterval(this Reading reading, StreakInterval streakInterval)
+        {
+            var startDateTime = DateTime.Parse(streakInterval.Start);
+            var endDateTime = DateTime.Parse(streakInterval.End);
+
+            var objectId = ObjectId.Parse(reading.Id);
+            var readingCreationTime = TimeSpan.Parse(objectId.CreationTime.Hour + ":" + objectId.CreationTime.Minute);
+
+            return readingCreationTime >= startDateTime.TimeOfDay && readingCreationTime <= endDateTime.TimeOfDay;
+        }
+    }
 }
