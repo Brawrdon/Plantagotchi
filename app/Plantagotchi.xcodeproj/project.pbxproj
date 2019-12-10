@@ -1,0 +1,627 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CA30EC4B23A053A700814E2E /* ReadingDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30EC4A23A053A700814E2E /* ReadingDetailedView.swift */; };
+		CA30EC4D23A056AB00814E2E /* ReadingPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA30EC4C23A056AB00814E2E /* ReadingPropertyView.swift */; };
+		CAF2318E23A03685006B04E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF2318D23A03685006B04E0 /* AppDelegate.swift */; };
+		CAF2319023A03685006B04E0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF2318F23A03685006B04E0 /* SceneDelegate.swift */; };
+		CAF2319223A03685006B04E0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF2319123A03685006B04E0 /* ContentView.swift */; };
+		CAF2319423A0368D006B04E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAF2319323A0368D006B04E0 /* Assets.xcassets */; };
+		CAF2319723A0368D006B04E0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAF2319623A0368D006B04E0 /* Preview Assets.xcassets */; };
+		CAF2319A23A0368D006B04E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAF2319823A0368D006B04E0 /* LaunchScreen.storyboard */; };
+		CAF231A523A0368D006B04E0 /* PlantagotchiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF231A423A0368D006B04E0 /* PlantagotchiTests.swift */; };
+		CAF231B023A0368D006B04E0 /* PlantagotchiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF231AF23A0368D006B04E0 /* PlantagotchiUITests.swift */; };
+		CAF231BF23A03891006B04E0 /* Landmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAF231BE23A03891006B04E0 /* Landmarks.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CAF231A123A0368D006B04E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAF2318223A03685006B04E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAF2318923A03685006B04E0;
+			remoteInfo = Plantagotchi;
+		};
+		CAF231AC23A0368D006B04E0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CAF2318223A03685006B04E0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CAF2318923A03685006B04E0;
+			remoteInfo = Plantagotchi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CA30EC4A23A053A700814E2E /* ReadingDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingDetailedView.swift; sourceTree = "<group>"; };
+		CA30EC4C23A056AB00814E2E /* ReadingPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingPropertyView.swift; sourceTree = "<group>"; };
+		CAF2318A23A03685006B04E0 /* Plantagotchi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Plantagotchi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF2318D23A03685006B04E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		CAF2318F23A03685006B04E0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		CAF2319123A03685006B04E0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CAF2319323A0368D006B04E0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CAF2319623A0368D006B04E0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CAF2319923A0368D006B04E0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		CAF2319B23A0368D006B04E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAF231A023A0368D006B04E0 /* PlantagotchiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantagotchiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF231A423A0368D006B04E0 /* PlantagotchiTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantagotchiTests.swift; sourceTree = "<group>"; };
+		CAF231A623A0368D006B04E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAF231AB23A0368D006B04E0 /* PlantagotchiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlantagotchiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAF231AF23A0368D006B04E0 /* PlantagotchiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantagotchiUITests.swift; sourceTree = "<group>"; };
+		CAF231B123A0368D006B04E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CAF231BE23A03891006B04E0 /* Landmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Landmarks.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CAF2318723A03685006B04E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF2319D23A0368D006B04E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF231A823A0368D006B04E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CA30EC4E23A0635500814E2E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CAF2319123A03685006B04E0 /* ContentView.swift */,
+				CA30EC4A23A053A700814E2E /* ReadingDetailedView.swift */,
+				CA30EC4C23A056AB00814E2E /* ReadingPropertyView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CAF2318123A03685006B04E0 = {
+			isa = PBXGroup;
+			children = (
+				CAF2318C23A03685006B04E0 /* Plantagotchi */,
+				CAF231A323A0368D006B04E0 /* PlantagotchiTests */,
+				CAF231AE23A0368D006B04E0 /* PlantagotchiUITests */,
+				CAF2318B23A03685006B04E0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CAF2318B23A03685006B04E0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CAF2318A23A03685006B04E0 /* Plantagotchi.app */,
+				CAF231A023A0368D006B04E0 /* PlantagotchiTests.xctest */,
+				CAF231AB23A0368D006B04E0 /* PlantagotchiUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CAF2318C23A03685006B04E0 /* Plantagotchi */ = {
+			isa = PBXGroup;
+			children = (
+				CA30EC4E23A0635500814E2E /* Views */,
+				CAF231BD23A03846006B04E0 /* Models */,
+				CAF2318D23A03685006B04E0 /* AppDelegate.swift */,
+				CAF2318F23A03685006B04E0 /* SceneDelegate.swift */,
+				CAF2319323A0368D006B04E0 /* Assets.xcassets */,
+				CAF2319823A0368D006B04E0 /* LaunchScreen.storyboard */,
+				CAF2319B23A0368D006B04E0 /* Info.plist */,
+				CAF2319523A0368D006B04E0 /* Preview Content */,
+			);
+			path = Plantagotchi;
+			sourceTree = "<group>";
+		};
+		CAF2319523A0368D006B04E0 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CAF2319623A0368D006B04E0 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CAF231A323A0368D006B04E0 /* PlantagotchiTests */ = {
+			isa = PBXGroup;
+			children = (
+				CAF231A423A0368D006B04E0 /* PlantagotchiTests.swift */,
+				CAF231A623A0368D006B04E0 /* Info.plist */,
+			);
+			path = PlantagotchiTests;
+			sourceTree = "<group>";
+		};
+		CAF231AE23A0368D006B04E0 /* PlantagotchiUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CAF231AF23A0368D006B04E0 /* PlantagotchiUITests.swift */,
+				CAF231B123A0368D006B04E0 /* Info.plist */,
+			);
+			path = PlantagotchiUITests;
+			sourceTree = "<group>";
+		};
+		CAF231BD23A03846006B04E0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CAF231BE23A03891006B04E0 /* Landmarks.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CAF2318923A03685006B04E0 /* Plantagotchi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAF231B423A0368D006B04E0 /* Build configuration list for PBXNativeTarget "Plantagotchi" */;
+			buildPhases = (
+				CAF2318623A03685006B04E0 /* Sources */,
+				CAF2318723A03685006B04E0 /* Frameworks */,
+				CAF2318823A03685006B04E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Plantagotchi;
+			productName = Plantagotchi;
+			productReference = CAF2318A23A03685006B04E0 /* Plantagotchi.app */;
+			productType = "com.apple.product-type.application";
+		};
+		CAF2319F23A0368D006B04E0 /* PlantagotchiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAF231B723A0368D006B04E0 /* Build configuration list for PBXNativeTarget "PlantagotchiTests" */;
+			buildPhases = (
+				CAF2319C23A0368D006B04E0 /* Sources */,
+				CAF2319D23A0368D006B04E0 /* Frameworks */,
+				CAF2319E23A0368D006B04E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAF231A223A0368D006B04E0 /* PBXTargetDependency */,
+			);
+			name = PlantagotchiTests;
+			productName = PlantagotchiTests;
+			productReference = CAF231A023A0368D006B04E0 /* PlantagotchiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CAF231AA23A0368D006B04E0 /* PlantagotchiUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CAF231BA23A0368D006B04E0 /* Build configuration list for PBXNativeTarget "PlantagotchiUITests" */;
+			buildPhases = (
+				CAF231A723A0368D006B04E0 /* Sources */,
+				CAF231A823A0368D006B04E0 /* Frameworks */,
+				CAF231A923A0368D006B04E0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CAF231AD23A0368D006B04E0 /* PBXTargetDependency */,
+			);
+			name = PlantagotchiUITests;
+			productName = PlantagotchiUITests;
+			productReference = CAF231AB23A0368D006B04E0 /* PlantagotchiUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CAF2318223A03685006B04E0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1120;
+				LastUpgradeCheck = 1120;
+				ORGANIZATIONNAME = "Brandon Okeke";
+				TargetAttributes = {
+					CAF2318923A03685006B04E0 = {
+						CreatedOnToolsVersion = 11.2.1;
+					};
+					CAF2319F23A0368D006B04E0 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = CAF2318923A03685006B04E0;
+					};
+					CAF231AA23A0368D006B04E0 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = CAF2318923A03685006B04E0;
+					};
+				};
+			};
+			buildConfigurationList = CAF2318523A03685006B04E0 /* Build configuration list for PBXProject "Plantagotchi" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CAF2318123A03685006B04E0;
+			productRefGroup = CAF2318B23A03685006B04E0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CAF2318923A03685006B04E0 /* Plantagotchi */,
+				CAF2319F23A0368D006B04E0 /* PlantagotchiTests */,
+				CAF231AA23A0368D006B04E0 /* PlantagotchiUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CAF2318823A03685006B04E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAF2319A23A0368D006B04E0 /* LaunchScreen.storyboard in Resources */,
+				CAF2319723A0368D006B04E0 /* Preview Assets.xcassets in Resources */,
+				CAF2319423A0368D006B04E0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF2319E23A0368D006B04E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF231A923A0368D006B04E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CAF2318623A03685006B04E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAF2318E23A03685006B04E0 /* AppDelegate.swift in Sources */,
+				CAF2319023A03685006B04E0 /* SceneDelegate.swift in Sources */,
+				CAF2319223A03685006B04E0 /* ContentView.swift in Sources */,
+				CA30EC4D23A056AB00814E2E /* ReadingPropertyView.swift in Sources */,
+				CAF231BF23A03891006B04E0 /* Landmarks.swift in Sources */,
+				CA30EC4B23A053A700814E2E /* ReadingDetailedView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF2319C23A0368D006B04E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAF231A523A0368D006B04E0 /* PlantagotchiTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CAF231A723A0368D006B04E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CAF231B023A0368D006B04E0 /* PlantagotchiUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CAF231A223A0368D006B04E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAF2318923A03685006B04E0 /* Plantagotchi */;
+			targetProxy = CAF231A123A0368D006B04E0 /* PBXContainerItemProxy */;
+		};
+		CAF231AD23A0368D006B04E0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CAF2318923A03685006B04E0 /* Plantagotchi */;
+			targetProxy = CAF231AC23A0368D006B04E0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		CAF2319823A0368D006B04E0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CAF2319923A0368D006B04E0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		CAF231B223A0368D006B04E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CAF231B323A0368D006B04E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CAF231B523A0368D006B04E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Plantagotchi/Preview Content\"";
+				DEVELOPMENT_TEAM = 522259U6BG;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Plantagotchi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.Plantagotchi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CAF231B623A0368D006B04E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"Plantagotchi/Preview Content\"";
+				DEVELOPMENT_TEAM = 522259U6BG;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Plantagotchi/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.Plantagotchi;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		CAF231B823A0368D006B04E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 522259U6BG;
+				INFOPLIST_FILE = PlantagotchiTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.PlantagotchiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plantagotchi.app/Plantagotchi";
+			};
+			name = Debug;
+		};
+		CAF231B923A0368D006B04E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 522259U6BG;
+				INFOPLIST_FILE = PlantagotchiTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.PlantagotchiTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Plantagotchi.app/Plantagotchi";
+			};
+			name = Release;
+		};
+		CAF231BB23A0368D006B04E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 522259U6BG;
+				INFOPLIST_FILE = PlantagotchiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.PlantagotchiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Plantagotchi;
+			};
+			name = Debug;
+		};
+		CAF231BC23A0368D006B04E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 522259U6BG;
+				INFOPLIST_FILE = PlantagotchiUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = brawrdon.PlantagotchiUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Plantagotchi;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CAF2318523A03685006B04E0 /* Build configuration list for PBXProject "Plantagotchi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAF231B223A0368D006B04E0 /* Debug */,
+				CAF231B323A0368D006B04E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAF231B423A0368D006B04E0 /* Build configuration list for PBXNativeTarget "Plantagotchi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAF231B523A0368D006B04E0 /* Debug */,
+				CAF231B623A0368D006B04E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAF231B723A0368D006B04E0 /* Build configuration list for PBXNativeTarget "PlantagotchiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAF231B823A0368D006B04E0 /* Debug */,
+				CAF231B923A0368D006B04E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CAF231BA23A0368D006B04E0 /* Build configuration list for PBXNativeTarget "PlantagotchiUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CAF231BB23A0368D006B04E0 /* Debug */,
+				CAF231BC23A0368D006B04E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = CAF2318223A03685006B04E0 /* Project object */;
+}
